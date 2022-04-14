@@ -9,8 +9,29 @@
             <div class="float-right my-2">
                 <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Input Mahasiswa</a>
             </div>
+            <br><br>
+            <form class="form-inline" method="POST" action="{{ route('mahasiswa.search') }}">
+                @csrf
+                <input name="search" class="form-control mr-sm-2" type="text" autocomplete="off"
+                    placeholder="Ketik yang Anda Cari">
+                <button class="btn btn-success" type="submit">Cari Mahasiswa</button>
+            </form>
         </div>
     </div>
+
+    <!-- button search -->
+    <!-- <div class="row justify-content-end">
+    <div class="col-md-4">
+        <form action="{{ route('mahasiswa.index') }}" accept-charset="UTF-8" method="get">
+            <div class="input-group">
+                <input type="text" name="search" id="search" placeholder="Cari" class="form-control">
+                <span class="input-group-btn">
+                    <input type="submit" value="Cari" class="btn btn-primary">
+                </span>
+            </div>
+        </form>
+    </div>
+</div> -->
 
     @if ($message = Session::get('success'))
 

@@ -13,7 +13,7 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //fungsi eloquent menampilkan data menggunakan pagination
         // $mahasiswa = $mahasiswa = DB::table('mahasiswa')->get(); // Mengambil semua isi tabel
@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
 
         // $mahasiswa = Mahasiswa::latest('nim')->paginate(3);
         // return view('mahasiswa.index', compact('mahasiswa'));
-
+        
         $mahasiswa = Mahasiswa::latest('nim')->paginate(3);
         $paginate = Mahasiswa::orderBy('Nim', 'asc')->paginate(3);
         return view('mahasiswa.index', ['mahasiswa' => $mahasiswa, 'paginate' => $paginate]);
@@ -137,5 +137,19 @@ class MahasiswaController extends Controller
         Mahasiswa::where('nim', $Nim)->firstOrFail()->delete();
         return redirect()->route('mahasiswa.index')
         -> with('success', 'Mahasiswa Berhasil Dihapus');  
+    }
+
+    public function searchMahasiswa(Request $request)
+    {
+        $search     = $request->search;
+        $mahasiswa  = Mahasiswa::where("nim", "LIKE", "%$search%")
+            ->orWhere("nama", "LIKE", "%$search%")
+            ->orWhere("kelas", "LIKE", "%$search%")
+            ->orWhere("jurusan", "LIKE", "%$search%")
+            ->orWhere("email", "LIKE", "%$search%")
+            ->orWhere("alamat", "LIKE", "%$search%")
+            ->orWhere("tanggal_lahir", "LIKE", "%$search%")
+            ->paginate(3);
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 };

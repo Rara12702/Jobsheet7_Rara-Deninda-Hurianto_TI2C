@@ -27,4 +27,10 @@ class Mahasiswa extends Model //Definisi Model
         'Alamat',
         'Tanggal_lahir',
     ];
+
+    // for search
+    public static function getByNim($Nim)
+    {
+        return self::where('nim', $Nim)->firstOrFail();
+    }
 };
