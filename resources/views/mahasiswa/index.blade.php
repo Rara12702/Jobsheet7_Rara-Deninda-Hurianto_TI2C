@@ -55,4 +55,10 @@
     </tr>
     @endforeach
 </table>
+<!-- <div class="row">
+        <div class="d-flex">
+            {{ $mahasiswa->links('pagination::bootstrap-4') }}
+        </div>
+    </div> -->
+    {{ $mahasiswa -> links('mahasiswa.pagination') }}
 @endsection
